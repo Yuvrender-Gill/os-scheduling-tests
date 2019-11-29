@@ -49,15 +49,16 @@ int clock_evict() {
  * Input: The page table entry for the page that is being accessed.
  */
 void clock_ref(pgtbl_entry_t *p) {
-	
+
+	// Set the reference flag everytime clock refers it
 	p->frame |= PG_REF;
-	return;
 }
 
 /* Initialize any data structures needed for this replacement
  * algorithm. 
  */
 void clock_init() {
+
 	// Initially set clock hand to 0.
-	clock_hand = 0
+	clock_hand = 0;
 }
