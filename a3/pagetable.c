@@ -53,10 +53,11 @@ int allocate_frame(pgtbl_entry_t *p) {
 			assert(swap_offset != INVALID_SWAP);
 			
 			victim_page -> swap_off = swap_offset;	//Set the page offset
-			evict_dirty_count++; // Increment the number of dirty evicted pages
 
 			victim_page -> frame &= ~PG_DIRTY; // Set the not dirty flag
 			victim_page -> frame |= PG_ONSWAP;	// Set the swap flag
+
+			evict_dirty_count++; // Increment the number of dirty evicted pages
 		}
 		
 		
