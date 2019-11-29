@@ -159,7 +159,8 @@ char *find_physpage(addr_t vaddr, char type) {
 	// Use top-level page directory to get pointer to 2nd-level page table
 
 	// Check for invalid pgdir 
-	if ((pgdir[idx].pde & PG_VALID) == 0){
+	if ((pgdir[idx].pde & PG_VALID) == 0) {
+
 		pgdir[idx] = init_second_level(); // Initialize a new pgdir_entry_t
 	}
 
@@ -170,11 +171,37 @@ char *find_physpage(addr_t vaddr, char type) {
 	p = &pgtbl[PGTBL_INDEX(vaddr)];
 
 	// Check if p is valid or not, on swap or not, and handle appropriately
-	if (!(p->frame & PG_VALID)){
-		// page is invalid (miss)
-        //TODO
-	}else{
-		hit_count++;
+	if (p->frame & PG_VALID) {
+		
+		hit_count++; // Increment the hit count for valid p
+
+	} else {
+
+		miss_count++;// Increment the hit count for invalid p
+
+		// Allocate frame for virtual page p
+		int frame = allocate_frame(p);
+
+		// Check if p is on swap or not 
+		if (p->frame & PG_ONSWAP) {
+
+			// If data is not read into physical memory then exit
+			if (swap_pagein(frame, p->swap_off) != 0) { exit(1);};
+
+			p->frame |= PG_ONSWAP; // Set the swap flag
+			p->frame &= ~PG_DIRTY; // Set not dirty flag 
+
+		} else {
+
+			// First use, initialize the frame
+			init_frame(frame, vaddr);
+			
+			p->frame |= PG_DIRTY;
+		}
+
+		// Make room for the status bits
+		p->frame = frame << PAGE_SHIFT;
+		// TODO: Set core map values
 	}
 
 
