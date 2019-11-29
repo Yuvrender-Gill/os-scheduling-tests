@@ -27,7 +27,8 @@ int clock_evict() {
 
 			// Reset reference flag if initially set
 			(coremap[clock_hand].pte) -> frame &= ~PG_REF;
-			//Increment the clock hand
+			
+			//Increment the clock hand (page frame number)
 			clock_hand++; 
 
 		} else {
