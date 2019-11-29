@@ -12,6 +12,8 @@ extern int debug;
 
 extern struct frame *coremap;
 
+int head; // FIFO head
+
 /* Page to evict is chosen using the fifo algorithm.
  * Returns the page frame number (which is also the index in the coremap)
  * for the page that is to be evicted.
@@ -34,4 +36,7 @@ void fifo_ref(pgtbl_entry_t *p) {
  * replacement algorithm 
  */
 void fifo_init() {
+
+	// Initialize the fifo head with 0
+	head = 0;
 }
