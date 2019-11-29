@@ -32,7 +32,7 @@ int allocate_frame(pgtbl_entry_t *p) {
 			break;
 		}
 	}
-	if(frame == -1) { // Didn't find a free page.
+	if (frame == -1) { // Didn't find a free page.
 		// Call replacement algorithm's evict function to select victim
 		frame = evict_fcn();
 
@@ -42,7 +42,7 @@ int allocate_frame(pgtbl_entry_t *p) {
 
 		pgtbl_entry_t *victim_page = coremap[frame].pte;
 
-		if((victim_page -> frame) & ~PG_DIRTY) {
+		if ((victim_page -> frame) & ~PG_DIRTY) {
 			// Increment the number of clean evicted pages
 			evict_clean_count++;
 		} else {
@@ -58,7 +58,7 @@ int allocate_frame(pgtbl_entry_t *p) {
 			victim_page -> frame |= PG_ONSWAP;	// Set the swap flag
 
 			evict_dirty_count++; // Increment the number of dirty evicted pages
-		}\
+		}
 		
 		
 		victim_page -> frame &= ~PG_VALID;
