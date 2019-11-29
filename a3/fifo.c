@@ -19,8 +19,15 @@ int head; // FIFO head
  * for the page that is to be evicted.
  */
 int fifo_evict() {
+	int prev = head;
+
+	head = (head + 1) % memsize;
+	// Reset FIFO head if page number reaches the memsize. 
+	if (head == memsize){
+		head = 0;
+	}
 	
-	return 0;
+	return prev;
 }
 
 /* This function is called on each access to a page to update any information
@@ -28,7 +35,7 @@ int fifo_evict() {
  * Input: The page table entry for the page that is being accessed.
  */
 void fifo_ref(pgtbl_entry_t *p) {
-
+	// Nothing to change
 	return;
 }
 
