@@ -170,7 +170,12 @@ char *find_physpage(addr_t vaddr, char type) {
 	p = &pgtbl[PGTBL_INDEX(vaddr)];
 
 	// Check if p is valid or not, on swap or not, and handle appropriately
-
+	if (!(p->frame & PG_VALID)){
+		// page is invalid (miss)
+        //TODO
+	}else{
+		hit_count++;
+	}
 
 
 	// Make sure that p is marked valid and referenced. Also mark it
