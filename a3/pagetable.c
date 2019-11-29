@@ -58,7 +58,7 @@ int allocate_frame(pgtbl_entry_t *p) {
 			victim_page -> frame |= PG_ONSWAP;	// Set the swap flag
 
 			evict_dirty_count++; // Increment the number of dirty evicted pages
-		}
+		}\
 		
 		
 		victim_page -> frame &= ~PG_VALID;
