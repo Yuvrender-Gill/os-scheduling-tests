@@ -66,7 +66,7 @@ struct frame {
 	pgtbl_entry_t *pte;// Pointer back to pagetable entry (pte) for page
 					   // stored in this frame
 	// Added 
-	int frame; // Int to store the frame number 
+	int frame_num; // Int to store the frame number 
 	struct frame * next_frame; // Link to the next frame 
 };
 
