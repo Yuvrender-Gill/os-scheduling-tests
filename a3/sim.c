@@ -23,7 +23,7 @@ struct functions algs[] = {
 	{"lru", lru_init, lru_ref, lru_evict},
 	{"fifo", fifo_init, fifo_ref, fifo_evict},
 	{"clock",clock_init, clock_ref, clock_evict},
-	{"opt", opt_init, opt_ref, opt_evict}
+//	{"opt", opt_init, opt_ref, opt_evict}
 };
 int num_algs = 5;
 
