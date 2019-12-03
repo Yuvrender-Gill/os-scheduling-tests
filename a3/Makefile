@@ -1,7 +1,7 @@
 
 CFLAGS=-std=gnu99 -Wall -g
 
-sim :  sim.o pagetable.o swap.o rand.o clock.o lru.o fifo.o opt.o
+sim :  sim.o pagetable.o swap.o rand.o clock.o lru.o fifo.o
 	gcc $(CFLAGS) -o sim $^
 
 %.o : %.c pagetable.h sim.h
