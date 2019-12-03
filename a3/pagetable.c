@@ -42,10 +42,7 @@ int allocate_frame(pgtbl_entry_t *p) {
 
 		pgtbl_entry_t *victim_page = coremap[frame].pte;
 
-		if ((victim_page -> frame) & ~PG_DIRTY) {
-			// Increment the number of clean evicted pages
-			evict_clean_count++;
-		} else {
+		if ((victim_page -> frame) & PG_DIRTY) {
 			// Get the swap file offset from the physical memory frame.
 			int swap_offset = swap_pageout(frame, (coremap[frame].pte) -> swap_off);
 
@@ -58,6 +55,10 @@ int allocate_frame(pgtbl_entry_t *p) {
 			victim_page -> frame |= PG_ONSWAP;	// Set the swap flag
 
 			evict_dirty_count++; // Increment the number of dirty evicted pages
+			
+		} else {
+			// Increment the number of clean evicted pages
+			evict_clean_count++;
 		}
 		
 		
