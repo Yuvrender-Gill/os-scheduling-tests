@@ -68,6 +68,7 @@ struct frame {
 	// Added 
 	int frame_num; // Int to store the frame number 
 	struct frame * next_frame; // Link to the next frame 
+    struct frame * prev_frame; // Link to the next frame 
 };
 
 /* The coremap holds information about physical memory.
