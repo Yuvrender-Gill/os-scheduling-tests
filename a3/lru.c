@@ -114,7 +114,7 @@ void lru_ref(pgtbl_entry_t *p) {
 	recent_mru->next_frame = mru_frame;
 	mru_frame = recent_mru;
 
-	// Update the tail if it hasn't been set yet
+	
 	if (!lru_frame) {
 		lru_frame = recent_mru;
 	}
