@@ -24,12 +24,8 @@ int lru_evict() {
 
 	// If least recently used frame doesn't exist then exit. 
 	if (lru_frame == NULL) { exit(1); };
-
-	// Get the frame number. 
-	int frame_num = lru_frame->frame_num;
-
-	
-	return frame_num;
+	// Return the frame number
+	return lru_frame->frame_num;
 
 }
 
@@ -40,14 +36,9 @@ int lru_evict() {
 void lru_ref(pgtbl_entry_t *p) {
 
 
-
-	// Check if the most recently used frame is similar to the given frame
-	// for the given page table enty. 
 	struct frame *recent_mru = &coremap[p->frame >> PAGE_SHIFT];
 
-	// If the frame for p is same as most recently used then return 
-	// immediately. 
-	if (recent_mru == mru_frame) {
+	if (recent_mru->prev_frame == NULL){
 		return;
 	}
 
