@@ -39,11 +39,11 @@ int lru_evict() {
  */
 void lru_ref(pgtbl_entry_t *p) {
 
-	int frame_num = p->frame >> PAGE_SHIFT;
+
 
 	// Check if the most recently used frame is similar to the given frame
 	// for the given page table enty. 
-	struct frame *recent_mru = &coremap[frame_num];
+	struct frame *recent_mru = &coremap[p->frame >> PAGE_SHIFT];
 
 	// If the frame for p is same as most recently used then return 
 	// immediately. 
@@ -59,7 +59,7 @@ void lru_ref(pgtbl_entry_t *p) {
 		recent_mru->next_frame->prev_frame = recent_mru->prev_frame;
 	}
 
-	recent_mru->frame_num = frame_num;
+	recent_mru->frame_num = p->frame >> PAGE_SHIFT;
 	recent_mru->next_frame = mru_frame;
     recent_mru->prev_frame = NULL;
     recent_mru->next_frame->prev_frame = recent_mru;
