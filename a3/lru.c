@@ -50,9 +50,11 @@ void lru_ref(pgtbl_entry_t *p) {
 	if (recent_mru == mru_frame) {
 		return;
 	}
-	// remove the mru_frame
+
 	recent_mru->prev_frame->next_frame = recent_mru->next_frame;
-	if (recent_mru == lru_frame) {
+	
+	// remove the mru_frame
+    if (recent_mru == lru_frame) {
 		// reset the last_frame if mru_frame is the current last_frame
 		lru_frame = lru_frame->prev_frame;
 	} else {
@@ -60,20 +62,11 @@ void lru_ref(pgtbl_entry_t *p) {
 		recent_mru->next_frame->prev_frame = recent_mru->prev_frame;
 	}
 
-	// Update the most recently used frame with the more recent one
-	// that is the frame for page table entry p. 
-	// struct frame * recent_mru = (struct frame*) malloc(sizeof(struct frame));
-
 	recent_mru->frame_num = frame_num;
 	recent_mru->next_frame = mru_frame;
     recent_mru->prev_frame = NULL;
+    recent_mru->next_frame->prev_frame = recent_mru;
 	mru_frame = recent_mru;
-	
-/*	if (!lru_frame) {*/
-/*		lru_frame = recent_mru;*/
-/*	}*/
-
-	return;
 }
 
 
@@ -83,7 +76,6 @@ void lru_ref(pgtbl_entry_t *p) {
 void lru_init() {
 	
 	for (int i = 0; i < memsize; i++) {
-        printf(" Init i: %d\n",  i);
 		if (i < memsize - 1) {
 			
 			(&coremap[i])->next_frame = &coremap[i+1];
