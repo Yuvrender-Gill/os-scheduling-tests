@@ -53,12 +53,9 @@ void lru_ref(pgtbl_entry_t *p) {
 
 	recent_mru->prev_frame->next_frame = recent_mru->next_frame;
 	
-	// remove the mru_frame
     if (recent_mru == lru_frame) {
-		// reset the last_frame if mru_frame is the current last_frame
 		lru_frame = lru_frame->prev_frame;
 	} else {
-		// if mru_frame is not the current last_frame, update the prev pointer of the node after mru_frame
 		recent_mru->next_frame->prev_frame = recent_mru->prev_frame;
 	}
 
