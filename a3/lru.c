@@ -38,23 +38,30 @@ void lru_ref(pgtbl_entry_t *p) {
 
 	struct frame *recent_mru = &coremap[p->frame >> PAGE_SHIFT];
 
+	// Remove the recently used frame from original position in linked list
+
+	// If previous pointer is null then return immediately
 	if (recent_mru->prev_frame == NULL){
 		return;
 	}
-
-	recent_mru->prev_frame->next_frame = recent_mru->next_frame;
+	// Remove the current frame from the linked list
+	recent_mru->prev_frame->next_frame = recent_mru->next_frame; // Unlink from previous node
 	
     if (recent_mru == lru_frame) {
-		lru_frame = lru_frame->prev_frame;
+		// If the current frame is the least used then it's at the end
+		// of the linked list 
+		lru_frame = lru_frame->prev_frame; // Unlink from previous node
 	} else {
-		recent_mru->next_frame->prev_frame = recent_mru->prev_frame;
+		
+		recent_mru->next_frame->prev_frame = recent_mru->prev_frame; // Unlink from next node
 	}
 
-	recent_mru->frame_num = p->frame >> PAGE_SHIFT;
-	recent_mru->next_frame = mru_frame;
-    recent_mru->prev_frame = NULL;
-    recent_mru->next_frame->prev_frame = recent_mru;
-	mru_frame = recent_mru;
+	// Add recently used frame at the head of linked list
+	recent_mru->frame_num = p->frame >> PAGE_SHIFT; // Set frame number
+	recent_mru->next_frame = mru_frame; // Update next pointer
+    recent_mru->prev_frame = NULL; // Update previous pointer
+    recent_mru->next_frame->prev_frame = recent_mru; // Set the back pointer of next node
+	mru_frame = recent_mru; // Set the current node to head of the linked list
 }
 
 
