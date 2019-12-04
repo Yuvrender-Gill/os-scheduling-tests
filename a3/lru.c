@@ -62,30 +62,30 @@ void lru_ref(pgtbl_entry_t *p) {
  * replacement algorithm 
  */
 void lru_init() {
-	
-	for (int i = 0; i < memsize; i++) {
-		if (i < memsize - 1) {
-			
-			(&coremap[i])->next_frame = &coremap[i+1];
-            
-            if (i == 0){
-                
-                (&coremap[i])->prev_frame = NULL;
-            } else {
-                
-                (&coremap[i])->prev_frame = &coremap[i-1];
-            }
-
-         
-		} else {
-			
-			(&coremap[i])->next_frame = NULL;
-            (&coremap[i])->prev_frame = &coremap[i-1];
-         
-		}
-	}
 
 	// Set MRU and LRU frames 
 	mru_frame = &coremap[0];
 	lru_frame = &coremap[memsize - 1];
+	
+	// Initialize the doubly linked list as per given memory size
+	for (int i = 0; i < memsize; i++) {
+
+		// Last node in the linked list
+		if (i == memsize - 1) {
+			
+			(&coremap[i])->next_frame = NULL; // Next pointer is NULL
+            (&coremap[i])->prev_frame = &coremap[i-1]; // Prev pointer set to previous node
+
+		} else {
+
+			// First node in the linked list
+			if (i == 0){
+                (&coremap[i])->prev_frame = NULL; // Prev pointer is NULL
+            } else {
+                (&coremap[i])->prev_frame = &coremap[i-1]; // Prev pointer set to previous node
+            }
+
+			(&coremap[i])->next_frame = &coremap[i+1]; // Next pointer set to next node   
+		}
+	}
 }
