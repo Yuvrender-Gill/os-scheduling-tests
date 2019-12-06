@@ -1,20 +1,62 @@
 Simpleloop:
 
-Number of Instruction Pages:
-Number of Data Pages:
-Most Recently Used Pages:
+    Counts:
+      Instructions:  120406
+      Loads:  50090
+      Stores:  10063
+      Modifies:  10006
+
+Number of Instruction Pages: 120406
+Number of Data Pages: 70,159
+Most Frequently Accessed Pages:
+  For instruction pages, 0x108000 is accessed the most.
+  For data pages, 0x1fff000000 is accessed the most. 
 Explanation: 
+  For instruction pages, 0x108000 could be the page that cotains instructions like branch and arithmetic instructions like add,
+  because the value of variale i needs to be incremented and checked for the loop condition at every iteration.
+  For data pages, 0x1fff000000 could contain local varialbe i that needs to be accessed and updated at every iteration. 
+  Note that the size of krec struct is 8 * 128 = 1024, so the assignment inside the while loop might not cause high access count for cerntain pages,
+  since each page contains at most 4 krec structs. 
 
 Matmul:
 
-Number of Instruction Pages:
-Number of Data Pages:
-Most Recently Used Pages:
+    Counts:
+      Instructions:  47473963
+      Loads:  21491394
+      Stores:  1180752
+      Modifies:  1060125
+
+Number of Instruction Pages: 47473963
+Number of Data Pages: 23,732,271
+Most Accessed Pages:
+  For instruction pages, 0x108000 is accessed the most.
+  For data pages, 0x1fff000000 is accessed the most. 
 Explanation: 
+  For instruction pages, 0x108000 could contain arithmetic instructions and branching instructions,
+  because the value of local index variables like i, j, and k need to be recalculated and checked all the time. 
+  For data pages, 0x1fff000000 could contain local variable like i, j and k that needs to be accessed, updated or reassigned at every iteration. 
+  Note that repeated references of the actual matrices might not cause high page access count, since each matrix is rather big
+  which means that each page can't fit too many matrices.
+
+
+
 
 Blocked:
 
-Number of Instruction Pages:
-Number of Data Pages:
-Most Recently Used Pages:
+    Counts:
+      Instructions:  51791748
+      Loads:  21578983
+      Stores:  1283021
+      Modifies:  1091709
+
+Number of Instruction Pages: 51791748
+Number of Data Pages: 23,953,713
+Most Frequently Accessed Pages:
+    For instruction pages, 0x109000 is accessed the most.
+    For data pages, 0x1fff000000 is accessed the most
 Explanation: 
+    For instructin pages, 0x109000 could contain arithmetic, branching, load and store instructions, 
+    because the value of local index variables like i, j and k that need to be recalculated, reassigned and checked for loop conditions all the time. 
+    For data pages, 0x1fff000000 could contain local variables like i, j and k that needs to be accessed, updated or reassigned at ever iteration. 
+    Note that repeated refernces of the actual matrices might not cause high page access count, since a page does not contain too many matrices. 
+    
