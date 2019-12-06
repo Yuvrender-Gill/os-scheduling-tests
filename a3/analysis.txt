@@ -1,0 +1,20 @@
+Simpleloop:
+
+Number of Instruction Pages:
+Number of Data Pages:
+Most Recently Used Pages:
+Explanation: 
+
+Matmul:
+
+Number of Instruction Pages:
+Number of Data Pages:
+Most Recently Used Pages:
+Explanation: 
+
+Blocked:
+
+Number of Instruction Pages:
+Number of Data Pages:
+Most Recently Used Pages:
+Explanation: 
