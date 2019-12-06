@@ -1,3 +1,10 @@
+# USAGE:
+# python3 analyze.py <path to *.ref file to be analyzed> > <path to analyzed_output.txt>
+# EXAMPLE USAGE (on a CDF machine):
+# python3 analyze.py u/csc369h/fall/pub/a3/traces/addr-simpleloop.ref > simpleloop_analyzed.output
+# NOTE: analyzing addr-matmul.ref and addr-blocked.ref might take a while
+
+
 import sys
 
 def parse(file):
