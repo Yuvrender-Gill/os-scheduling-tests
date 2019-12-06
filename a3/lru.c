@@ -47,13 +47,16 @@ void lru_ref(pgtbl_entry_t *p) {
 	// Remove the current frame from the linked list
 	recent_mru->prev_frame->next_frame = recent_mru->next_frame; // Unlink from previous node
 	
-    if (recent_mru == lru_frame) {
+    if (recent_mru != lru_frame) {
+		// If normal node in LL
+		recent_mru->next_frame->prev_frame = recent_mru->prev_frame; // Unlink from next node
+	} else {
+		// If last node in LL
+		
 		// If the current frame is the least used then it's at the end
 		// of the linked list 
 		lru_frame = lru_frame->prev_frame; // Unlink from previous node
-	} else {
 		
-		recent_mru->next_frame->prev_frame = recent_mru->prev_frame; // Unlink from next node
 	}
 
 	// Add recently used frame at the head of linked list
